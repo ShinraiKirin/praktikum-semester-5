@@ -28,7 +28,6 @@ Route::get('/contact', function () {
     return view('Tugas-1.contact');
 })->name('contact');
 
-
 //rute group
 route::prefix('manage')->group(function () {
     route::get('/user', function () {
