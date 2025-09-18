@@ -1,6 +1,6 @@
 <?php
 
-use Faker\Guesser\Name;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,25 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('Tugas-1.welcome');
-})->name('welcome');
-
-//rute sederhana
-Route::get('/about', function () {
-    return 'welcome';
+    return view('welcome');
 });
 
-//rute nama
-Route::get('/contact', function () {
-    return view('Tugas-1.contact');
-})->name('contact');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-//rute group
-route::prefix('manage')->group(function () {
-    route::get('/user', function () {
-        return 'ini adalah halaman user';
-    });
-    route::get('/edit', function () {
-        return 'ini adalah halaman edit';
-    });
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__.'/auth.php';
