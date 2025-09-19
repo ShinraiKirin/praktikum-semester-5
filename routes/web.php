@@ -36,3 +36,6 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::get('/product',[ProductController::class, 'index']);
+
+Route::get('/route_cont/{id}',[ProductController::class, 'show']);
+
