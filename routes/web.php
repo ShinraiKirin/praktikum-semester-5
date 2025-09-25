@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified', 'RoleCheck:admin'])->name('dashboard');
+})->middleware(['auth', 'verified', 'RoleCheck:admin,owner'])->name('dashboard');
 
 require __DIR__.'/auth.php';
 
@@ -39,3 +39,5 @@ Route::get('/product',[ProductController::class, 'index']);
 
 Route::get('/route_cont/{id}',[ProductController::class, 'show']);
 
+Route::get('/product/{angka}', [ProductController::class, 'index'])
+    ->middleware(['auth', 'role:admin,owner']);
