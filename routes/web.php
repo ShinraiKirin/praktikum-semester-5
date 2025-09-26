@@ -41,3 +41,7 @@ Route::get('/route_cont/{id}',[ProductController::class, 'show']);
 
 Route::get('/product/{angka}', [ProductController::class, 'index'])
     ->middleware(['auth', 'role:admin,owner']);
+
+Route::get('/langganan', function () {
+    return view('langganan');
+});
