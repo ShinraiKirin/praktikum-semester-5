@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UtsController;
+use App\Http\Controllers\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,5 @@ Route::get('/langganan', function () {
 Route::get('/uts', [UtsController::class, 'index'])->name('uts.index');
 Route::get('/uts/pemrograman-web', [UtsController::class, 'pemrogramanWeb'])->name('uts.web');
 Route::get('/uts/database', [UtsController::class, 'database'])->name('uts.database');
+
+Route::get('/produk/{nilai}', [ProdukController::class, 'tampil']);
