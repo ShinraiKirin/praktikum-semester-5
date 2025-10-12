@@ -37,11 +37,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/product',[ProductController::class, 'index']);
+Route::get('/produk',[ProductController::class, 'index']);
 
 Route::get('/route_cont/{id}',[ProductController::class, 'show']);
 
-Route::get('/product/{angka}', [ProductController::class, 'index'])
+Route::get('/produk/{angka}', [ProductController::class, 'index'])
     ->middleware(['auth', 'role:admin,owner']);
 
 Route::get('/langganan', function () {
@@ -54,3 +54,6 @@ Route::get('/uts/pemrograman-web', [UtsController::class, 'pemrogramanWeb'])->na
 Route::get('/uts/database', [UtsController::class, 'database'])->name('uts.database');
 
 Route::get('/produk/{nilai}', [ProdukController::class, 'tampil']);
+
+route::get('/product/create', [ProductController::class, 'create'])->name('product-create');
+route::post('/product', [ProductController::class, 'store'])->name('product-store');
