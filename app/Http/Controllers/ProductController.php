@@ -4,53 +4,94 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+
 class ProductController extends Controller
 {
-    // menerima parameter angka dari route
-    public function index($angka)
+    /**
+     * Menampilkan daftar semua produk
+     */
+    public function index()
     {
-        // contoh: angka ditambah 10
-        $hasil = $angka + 10;
-
-        // lempar hasil ke view
-        return view('products.index', compact(var_name: 'hasil'));
+        $products = Product::all();
+        return view('master-data.product-master.index', compact('products'));
     }
 
+    /**
+     * Menampilkan form untuk menambah produk baru
+     */
     public function create()
     {
         return view('master-data.product-master.create-product');
     }
 
-public function store(Request $request) {
-        $validasi_data = $request -> validate([
-            'product_name' => 'required | string | max:256',
-            'unit' => 'required | string | max:50',
-            'type' => 'required | string | max:50',
-            'information' => 'nullable | string',
-            'qty'=> 'required | integer',
-            'producer'=> 'required | string | max:255'
+    /**
+     * Menyimpan produk baru ke database
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'product_name' => 'required|string|max:256',
+            'unit' => 'required|string|max:50',
+            'type' => 'required|string|max:50',
+            'information' => 'nullable|string',
+            'qty' => 'required|integer',
+            'producer' => 'required|string|max:255',
         ]);
 
-        Product::create($validasi_data);
-        return redirect()->back()->with('success', 'product created successfully');
-    }
-    public function show(string $id)
-    {
-        return view('barang', ['isi_data' => $id]);
+        Product::create($validated);
+
+        return redirect()->route('product.index')
+                         ->with('success', 'Product created successfully!');
     }
 
-    public function edit(string $id)
+    /**
+     * Menampilkan detail produk tertentu
+     */
+    public function show($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('master-data.product-master.show', compact('product'));
     }
 
-    public function update(Request $request, string $id)
+    /**
+     * Menampilkan form edit produk
+     */
+    public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('master-data.product-master.edit-product', compact('product'));
     }
 
-    public function destroy(string $id)
+    /**
+     * Mengupdate data produk
+     */
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'product_name' => 'required|string|max:256',
+            'unit' => 'required|string|max:50',
+            'type' => 'required|string|max:50',
+            'information' => 'nullable|string',
+            'qty' => 'required|integer',
+            'producer' => 'required|string|max:255',
+        ]);
+
+        $product = Product::findOrFail($id);
+        $product->update($validated);
+
+        return redirect()->route('product.index')
+                         ->with('success', 'Product updated successfully!');
+    }
+
+    /**
+     * Menghapus produk
+     */
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $product->delete();
+
+        return redirect()->route('product.index')
+                         ->with('success', 'Product deleted successfully!');
     }
 }

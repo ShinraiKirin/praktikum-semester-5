@@ -55,5 +55,19 @@ Route::get('/uts/database', [UtsController::class, 'database'])->name('uts.datab
 
 Route::get('/produk/{nilai}', [ProdukController::class, 'tampil']);
 
-route::get('/product/create', [ProductController::class, 'create'])->name('product-create');
-route::post('/product', [ProductController::class, 'store'])->name('product-store');
+// Menampilkan semua data produk (halaman daftar produk)
+Route::get('/product', [ProductController::class, 'index'])->name('product.index');
+// Menampilkan form untuk menambahkan produk baru
+Route::get('/product/create', [ProductController::class, 'create'])->name('product.create');
+// Menyimpan data produk baru dari form ke database
+Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+// Menampilkan form untuk mengedit data produk tertentu (berdasarkan id)
+Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('product.edit');
+// Memperbarui data produk di database setelah form edit disubmit
+Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
+// Menghapus data produk tertentu dari database
+Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier-index');
+Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier-create');
+Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier-store');

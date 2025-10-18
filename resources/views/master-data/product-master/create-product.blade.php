@@ -13,7 +13,7 @@
                         <h2 class="mb-5 text-2xl font-bold">Create New Product</h2>
                         <x-auth-session-status class="mb-4" :status="session('success')" />
                         
-                        <form action="{{ route('product-store') }}" method="POST" class="space-y-4">
+                        <form action="{{ route('product.store') }}" method="POST" class="space-y-4">
                             @csrf <!-- Laravel CSRF protection -->
 
                             <div class="form-group">
