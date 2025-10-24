@@ -67,7 +67,3 @@ Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('prod
 Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
 // Menghapus data produk tertentu dari database
 Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
-
-Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier-index');
-Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier-create');
-Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier-store');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -88,8 +89,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::findOrFail($id);
-        $product->delete();
+        //$product = Product::findOrFail($id);
+        //$product->delete();
+        
+        DB::table('products')->where('id', $id)->delete();
 
         return redirect()->route('product.index')
                          ->with('success', 'Product deleted successfully!');
