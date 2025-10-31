@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ProductsExport;
 
 class ProductController extends Controller
 {
@@ -42,7 +44,7 @@ class ProductController extends Controller
         Product::create($validated);
 
         return redirect()->route('product.index')
-                         ->with('success', 'Product created successfully!');
+            ->with('success', 'Product created successfully!');
     }
 
     /**
@@ -81,7 +83,7 @@ class ProductController extends Controller
         $product->update($validated);
 
         return redirect()->route('product.index')
-                         ->with('success', 'Product updated successfully!');
+            ->with('success', 'Product updated successfully!');
     }
 
     /**
@@ -91,10 +93,16 @@ class ProductController extends Controller
     {
         //$product = Product::findOrFail($id);
         //$product->delete();
-        
+
         DB::table('products')->where('id', $id)->delete();
 
         return redirect()->route('product.index')
-                         ->with('success', 'Product deleted successfully!');
+            ->with('success', 'Product deleted successfully!');
+    }
+
+
+    public function exportExcel()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
     }
 }

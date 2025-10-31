@@ -67,3 +67,5 @@ Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('prod
 Route::put('/product/{id}', [ProductController::class, 'update'])->name('product.update');
 // Menghapus data produk tertentu dari database
 Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+
+Route::get('/product/export/excel', [ProductController::class, 'exportExcel'])->name('product-export-excel');
